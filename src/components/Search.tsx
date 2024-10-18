@@ -1,5 +1,7 @@
-
-const Search = ()=>{
+interface SearchProp {
+    updateFilter: (propiedad:String, valor:String)=>void
+}
+const Search:React.FC<SearchProp> = ({updateFilter})=>{
     return(
             <div className="flex flex-row justify-around w-4/5 ">
                 <input className="basis-1/3 border-solid border border-white-200 bg-custom-gray rounded-lg p-[5px]" placeholder="Search by name..."></input>

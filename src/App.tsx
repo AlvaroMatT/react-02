@@ -11,16 +11,20 @@ export interface Product {
   price: number;
   status: boolean;
 }
+
 function App() {
 
   const [filter, setFilter]= useState({})
   useEffect(()=>{
     console.log(filter)
   }, [filter])
+  const updateFilter = (propiedad:String, valor:String)=>{
+    console.log(propiedad, valor)
+  }
   return (
     <div className='flex flex-col gap-10 items-center'>
       <span className='pt-5'> Products Table  App</span>
-      <Search></Search>
+      <Search updateFilter={updateFilter}></Search>
       <ResultsTable product={data}></ResultsTable>
 
     </div>
