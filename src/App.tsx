@@ -2,7 +2,7 @@ import Search from './components/Search'
 import './App.css'
 import ResultsTable from './components/ResultsTable'
 import data from './products.json';
-import { useEffect, useState } from 'react';
+import {  useMemo, useState } from 'react';
 
 export interface Product {
   id: number;
@@ -11,20 +11,36 @@ export interface Product {
   price: number;
   status: boolean;
 }
+export type Filters = {
+  search: string;
+  status: Status;
+  orderBy: OrderTypes;
+};
 
+type Status = 'All' | 'available' | 'not available';
+type OrderTypes = 'Price' | 'Name'
 function App() {
+  const [products, setProducts] = useState<Product[]>(data);
+  const [filters, setFilters]= useState<Filters>({
+    search: "",
+    status: 'All',
+    orderBy: 'Price'
+  })
+  
+  // const filteredProducts = useMemo(()=>{
+  //   return products
+  //   .filter(product => {
+      
+  //   })
+  // })
 
-  const [filter, setFilter]= useState({})
-  useEffect(()=>{
-    console.log(filter)
-  }, [filter])
-  const updateFilter = (propiedad:String, valor:String)=>{
-    console.log(propiedad, valor)
-  }
   return (
     <div className='flex flex-col gap-10 items-center'>
       <span className='pt-5'> Products Table  App</span>
-      <Search updateFilter={updateFilter}></Search>
+      <Search 
+        filters={filters}
+        onFiltersChange={setFilters}
+      ></Search>
       <ResultsTable product={data}></ResultsTable>
 
     </div>
